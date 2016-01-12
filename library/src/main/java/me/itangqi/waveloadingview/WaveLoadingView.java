@@ -46,9 +46,14 @@ public class WaveLoadingView extends View {
     private static final float DEFAULT_BORDER_WIDTH = 0;
     // This is incorrect/not recommended by Joshua Bloch in his book Effective Java (2nd ed).
     private static final int DEFAULT_WAVE_SHAPE = ShapeType.CIRCLE.ordinal();
-    private static final float DEFAULT_TITLE_TOP_SIZE = 18.0f;
-    private static final float DEFAULT_TITLE_CENTER_SIZE = 22.0f;
-    private static final float DEFAULT_TITLE_BOTTOM_SIZE = 18.0f;
+    private static final float DEFAULT_TITLE_FIRST_SIZE = 18.0f;
+    private static final float DEFAULT_TITLE_SECOND_SIZE = 18.0f;
+    private static final float DEFAULT_TITLE_THIRD_SIZE = 18.0f;
+    private static final float DEFAULT_TITLE_FORTH_SIZE = 18.0f;
+    private static final float DEFAULT_TITLE_FIFTH_SIZE = 18.0f;
+//    private static final float DEFAULT_TITLE_TOP_SIZE = 18.0f;
+//    private static final float DEFAULT_TITLE_CENTER_SIZE = 22.0f;
+//    private static final float DEFAULT_TITLE_BOTTOM_SIZE = 18.0f;
 
     public enum ShapeType {
         CIRCLE,
@@ -62,9 +67,14 @@ public class WaveLoadingView extends View {
     private int mShapeType;
 
     // Properties.
-    private String mTopTitle;
-    private String mCenterTitle;
-    private String mBottomTitle;
+    private String mFirstTitle;
+    private String mSecondTitle;
+    private String mThirdTitle;
+    private String mForthTitle;
+    private String mFifthTitle;
+//    private String mTopTitle;
+//    private String mCenterTitle;
+//    private String mBottomTitle;
     private float mDefaultWaterLevel;
     private float mWaterLevelRatio = 1f;
     private float mWaveShiftRatio = DEFAULT_WAVE_SHIFT_RATIO;
@@ -80,9 +90,14 @@ public class WaveLoadingView extends View {
     // Paint to draw border.
     private Paint mBorderPaint;
     // Point to draw title.
-    private Paint mTopTitlePaint;
-    private Paint mBottomTitlePaint;
-    private Paint mCenterTitlePaint;
+    private Paint mFirstTitlePaint;
+    private Paint mSecondTitlePaint;
+    private Paint mThirdTitlePaint;
+    private Paint mForthTitlePaint;
+    private Paint mFifthTitlePaint;
+//    private Paint mTopTitlePaint;
+//    private Paint mBottomTitlePaint;
+//    private Paint mCenterTitlePaint;
 
     // Animation.
     private AnimatorSet mAnimatorSet;
@@ -140,26 +155,40 @@ public class WaveLoadingView extends View {
         mBorderPaint.setColor(attributes.getColor(R.styleable.WaveLoadingView_mlv_borderColor, DEFAULT_WAVE_COLOR));
 
         // Init Title
-        mTopTitlePaint = new Paint();
-        mTopTitlePaint.setColor(attributes.getColor(R.styleable.WaveLoadingView_mlv_titleTopColor, DEFAULT_TITLE_COLOR));
-        mTopTitlePaint.setStyle(Paint.Style.FILL);
-        mTopTitlePaint.setAntiAlias(true);
-        mTopTitlePaint.setTextSize(attributes.getDimension(R.styleable.WaveLoadingView_mlv_titleTopSize, sp2px(DEFAULT_TITLE_TOP_SIZE)));
-        mTopTitle = attributes.getString(R.styleable.WaveLoadingView_mlv_titleTop);
+        mFirstTitlePaint = new Paint();
+        mFirstTitlePaint.setColor(attributes.getColor(R.styleable.WaveLoadingView_mlv_titleFirstColor, DEFAULT_TITLE_COLOR));
+        mFirstTitlePaint.setStyle(Paint.Style.FILL);
+        mFirstTitlePaint.setAntiAlias(true);
+        mFirstTitlePaint.setTextSize(attributes.getDimension(R.styleable.WaveLoadingView_mlv_titleFirstSize, sp2px(DEFAULT_TITLE_FIRST_SIZE)));
+        mFirstTitle = attributes.getString(R.styleable.WaveLoadingView_mlv_titleFirst);
 
-        mCenterTitlePaint = new Paint();
-        mCenterTitlePaint.setColor(attributes.getColor(R.styleable.WaveLoadingView_mlv_titleCenterColor, DEFAULT_TITLE_COLOR));
-        mCenterTitlePaint.setStyle(Paint.Style.FILL);
-        mCenterTitlePaint.setAntiAlias(true);
-        mCenterTitlePaint.setTextSize(attributes.getDimension(R.styleable.WaveLoadingView_mlv_titleCenterSize, sp2px(DEFAULT_TITLE_CENTER_SIZE)));
-        mCenterTitle = attributes.getString(R.styleable.WaveLoadingView_mlv_titleCenter);
+        mSecondTitlePaint = new Paint();
+        mSecondTitlePaint.setColor(attributes.getColor(R.styleable.WaveLoadingView_mlv_titleSecondColor, DEFAULT_TITLE_COLOR));
+        mSecondTitlePaint.setStyle(Paint.Style.FILL);
+        mSecondTitlePaint.setAntiAlias(true);
+        mSecondTitlePaint.setTextSize(attributes.getDimension(R.styleable.WaveLoadingView_mlv_titleSecondSize, sp2px(DEFAULT_TITLE_SECOND_SIZE)));
+        mSecondTitle = attributes.getString(R.styleable.WaveLoadingView_mlv_titleSecond);
 
-        mBottomTitlePaint = new Paint();
-        mBottomTitlePaint.setColor(attributes.getColor(R.styleable.WaveLoadingView_mlv_titleBottomColor, DEFAULT_TITLE_COLOR));
-        mBottomTitlePaint.setStyle(Paint.Style.FILL);
-        mBottomTitlePaint.setAntiAlias(true);
-        mBottomTitlePaint.setTextSize(attributes.getDimension(R.styleable.WaveLoadingView_mlv_titleBottomSize, sp2px(DEFAULT_TITLE_BOTTOM_SIZE)));
-        mBottomTitle = attributes.getString(R.styleable.WaveLoadingView_mlv_titleBottom);
+        mThirdTitlePaint = new Paint();
+        mThirdTitlePaint.setColor(attributes.getColor(R.styleable.WaveLoadingView_mlv_titleThirdColor, DEFAULT_TITLE_COLOR));
+        mThirdTitlePaint.setStyle(Paint.Style.FILL);
+        mThirdTitlePaint.setAntiAlias(true);
+        mThirdTitlePaint.setTextSize(attributes.getDimension(R.styleable.WaveLoadingView_mlv_titleThirdSize, sp2px(DEFAULT_TITLE_THIRD_SIZE)));
+        mThirdTitle = attributes.getString(R.styleable.WaveLoadingView_mlv_titleThird);
+
+        mForthTitlePaint = new Paint();
+        mForthTitlePaint.setColor(attributes.getColor(R.styleable.WaveLoadingView_mlv_titleForthColor, DEFAULT_TITLE_COLOR));
+        mForthTitlePaint.setStyle(Paint.Style.FILL);
+        mForthTitlePaint.setAntiAlias(true);
+        mForthTitlePaint.setTextSize(attributes.getDimension(R.styleable.WaveLoadingView_mlv_titleForthSize, sp2px(DEFAULT_TITLE_FORTH_SIZE)));
+        mForthTitle = attributes.getString(R.styleable.WaveLoadingView_mlv_titleForth);
+
+        mFifthTitlePaint = new Paint();
+        mFifthTitlePaint.setColor(attributes.getColor(R.styleable.WaveLoadingView_mlv_titleFifthColor, DEFAULT_TITLE_COLOR));
+        mFifthTitlePaint.setStyle(Paint.Style.FILL);
+        mFifthTitlePaint.setAntiAlias(true);
+        mFifthTitlePaint.setTextSize(attributes.getDimension(R.styleable.WaveLoadingView_mlv_titleFifthSize, sp2px(DEFAULT_TITLE_FIFTH_SIZE)));
+        mFifthTitle = attributes.getString(R.styleable.WaveLoadingView_mlv_titleFifth);
     }
 
     @Override
@@ -215,24 +244,55 @@ public class WaveLoadingView extends View {
             }
 
             // I know, the code written here is very shit.
-            if (!TextUtils.isEmpty(mTopTitle)) {
-                float top = mTopTitlePaint.measureText(mTopTitle);
-                canvas.drawText(mTopTitle, (getWidth() - top) / 2,
-                        getHeight() * 2 / 10.0f, mTopTitlePaint);
+
+            if (!TextUtils.isEmpty(mFirstTitle)) {
+                float top = mFirstTitlePaint.measureText(mFirstTitle);
+                canvas.drawText(mFirstTitle, (getWidth() - top) / 2,
+                        getHeight() * 2 / 10.0f, mFirstTitlePaint);
+            }
+            if (!TextUtils.isEmpty(mSecondTitle)) {
+                float top = mSecondTitlePaint.measureText(mSecondTitle);
+                canvas.drawText(mSecondTitle, (getWidth() - top) / 2,
+                        getHeight() * 2 / 6  - ((mSecondTitlePaint.descent() + mSecondTitlePaint.ascent()) / 2), mSecondTitlePaint);
+            }
+            if (!TextUtils.isEmpty(mThirdTitle)) {
+                float top = mThirdTitlePaint.measureText(mThirdTitle);
+                canvas.drawText(mThirdTitle, (getWidth() - top) / 2,
+                        getHeight() / 2 - ((mThirdTitlePaint.descent() + mThirdTitlePaint.ascent()) / 2), mThirdTitlePaint);
+
+            }
+            if (!TextUtils.isEmpty(mForthTitle)) {
+                float top = mForthTitlePaint.measureText(mForthTitle);
+                canvas.drawText(mForthTitle, (getWidth() - top) / 2,
+                        (getHeight() / 4  - ((mForthTitlePaint.descent() + mForthTitlePaint.ascent()) / 2)) * 2.5f, mForthTitlePaint);
+            }
+            if (!TextUtils.isEmpty(mFifthTitle)) {
+                float top = mFifthTitlePaint.measureText(mFifthTitle);
+                canvas.drawText(mFifthTitle, (getWidth() - top) / 2,
+                        getHeight() * 8 / 10.0f - ((mFifthTitlePaint.descent() + mFifthTitlePaint.ascent()) / 2), mFifthTitlePaint);
+
             }
 
-            if (!TextUtils.isEmpty(mCenterTitle)) {
-                float middle = mCenterTitlePaint.measureText(mCenterTitle);
-                // Draw the text centered.
-                canvas.drawText(mCenterTitle, (getWidth() - middle) / 2,
-                        getHeight() / 2 - ((mCenterTitlePaint.descent() + mCenterTitlePaint.ascent()) / 2), mCenterTitlePaint);
-            }
 
-            if (!TextUtils.isEmpty(mBottomTitle)) {
-                float bottom = mBottomTitlePaint.measureText(mBottomTitle);
-                canvas.drawText(mBottomTitle, (getWidth() - bottom) / 2,
-                        getHeight() * 8 / 10.0f - ((mBottomTitlePaint.descent() + mBottomTitlePaint.ascent()) / 2), mBottomTitlePaint);
-            }
+
+//            if (!TextUtils.isEmpty(mTopTitle)) {
+//                float top = mTopTitlePaint.measureText(mTopTitle);
+//                canvas.drawText(mTopTitle, (getWidth() - top) / 2,
+//                        getHeight() * 2 / 10.0f, mTopTitlePaint);
+//            }
+//
+//            if (!TextUtils.isEmpty(mCenterTitle)) {
+//                float middle = mCenterTitlePaint.measureText(mCenterTitle);
+//                // Draw the text centered.
+//                canvas.drawText(mCenterTitle, (getWidth() - middle) / 2,
+//                        getHeight() / 2 - ((mCenterTitlePaint.descent() + mCenterTitlePaint.ascent()) / 2), mCenterTitlePaint);
+//            }
+//
+//            if (!TextUtils.isEmpty(mBottomTitle)) {
+//                float bottom = mBottomTitlePaint.measureText(mBottomTitle);
+//                canvas.drawText(mBottomTitle, (getWidth() - bottom) / 2,
+//                        getHeight() * 8 / 10.0f - ((mBottomTitlePaint.descent() + mBottomTitlePaint.ascent()) / 2), mBottomTitlePaint);
+//            }
         } else {
             mWavePaint.setShader(null);
         }
@@ -433,77 +493,179 @@ public class WaveLoadingView extends View {
      *
      * @param topTitle Default to be null.
      */
-    public void setTopTitle(String topTitle) {
-        mTopTitle = topTitle;
+    public void setFirstTitle(String topTitle) {
+        mFirstTitle = topTitle;
+    }
+    public String getFirstTitle() {
+        return mFirstTitle;
+    }
+    public void setSecondTitle(String topTitle) {
+        mSecondTitle = topTitle;
+    }
+    public String getSecondTitle() {
+        return mSecondTitle;
+    }
+    public void setThirdTitle(String topTitle) {
+        mThirdTitle = topTitle;
+    }
+    public String getThirdTitle() {
+        return mThirdTitle;
+    }
+    public void setForthTitle(String topTitle) {
+        mForthTitle = topTitle;
+    }
+    public String getForthTitle() {
+        return mForthTitle;
+    }
+    public void setFifthTitle(String topTitle) {
+        mFifthTitle = topTitle;
+    }
+    public String getFifthTitle() {
+        return mFifthTitle;
     }
 
-    public String getTopTitle() {
-        return mTopTitle;
+
+//    public void setTopTitle(String topTitle) {
+//        mTopTitle = topTitle;
+//    }
+//
+//    public String getTopTitle() {
+//        return mTopTitle;
+//    }
+//
+//    public void setCenterTitle(String centerTitle) {
+//        mCenterTitle = centerTitle;
+//    }
+//
+//    public String getCenterTitle() {
+//        return mCenterTitle;
+//    }
+//
+//    public void setBottomTitle(String bottomTitle) {
+//        mBottomTitle = bottomTitle;
+//    }
+//
+//    public String getBottomTitle() {
+//        return mBottomTitle;
+//    }
+
+    // get set new colors
+
+    public void setFirstTitleColor(int topTitleColor) {
+        mFirstTitlePaint.setColor(topTitleColor);
+    }
+    public int getFirstTitleColor() {
+        return mFirstTitlePaint.getColor();
+    }
+    public void setSecondTitleColor(int topTitleColor) {
+        mSecondTitlePaint.setColor(topTitleColor);
+    }
+    public int getSecondTitleColor() {
+        return mSecondTitlePaint.getColor();
+    }
+    public void setThirdTitleColor(int topTitleColor) {
+        mThirdTitlePaint.setColor(topTitleColor);
+    }
+    public int getThirdTitleColor() {
+        return mThirdTitlePaint.getColor();
+    }
+    public void setForthTitleColor(int topTitleColor) {
+        mForthTitlePaint.setColor(topTitleColor);
+    }
+    public int getForthTitleColor() {
+        return mForthTitlePaint.getColor();
+    }
+    public void setFifthTitleColor(int topTitleColor) {
+        mFifthTitlePaint.setColor(topTitleColor);
+    }
+    public int getFifthTitleColor() {
+        return mFifthTitlePaint.getColor();
     }
 
-    public void setCenterTitle(String centerTitle) {
-        mCenterTitle = centerTitle;
+//    public void setTopTitleColor(int topTitleColor) {
+//        mTopTitlePaint.setColor(topTitleColor);
+//    }
+//
+//    public int getTopTitleColor() {
+//        return mTopTitlePaint.getColor();
+//    }
+//
+//    public void setCenterTitleColor(int centerTitleColor) {
+//        mCenterTitlePaint.setColor(centerTitleColor);
+//    }
+//
+//    public int getCenterTitleColor() {
+//        return mCenterTitlePaint.getColor();
+//    }
+//
+//    public void setBottomTitleColor(int bottomTitleColor) {
+//        mBottomTitlePaint.setColor(bottomTitleColor);
+//    }
+//
+//    public int getBottomTitleColor() {
+//        return mBottomTitlePaint.getColor();
+//    }
+
+    public void setFirstTitleSize(float topTitleSize) {
+        mFirstTitlePaint.setTextSize(sp2px(topTitleSize));
+    }
+    public float getFirstTitleSize() {
+        return mFirstTitlePaint.getTextSize();
     }
 
-    public String getCenterTitle() {
-        return mCenterTitle;
+    public void setSecondTitleSize(float topTitleSize) {
+        mSecondTitlePaint.setTextSize(sp2px(topTitleSize));
+    }
+    public float getSecondTitleSize() {
+        return mSecondTitlePaint.getTextSize();
     }
 
-    public void setBottomTitle(String bottomTitle) {
-        mBottomTitle = bottomTitle;
+    public void setThirdTitleSize(float topTitleSize) {
+        mThirdTitlePaint.setTextSize(sp2px(topTitleSize));
+    }
+    public float getThirdTitleSize() {
+        return mThirdTitlePaint.getTextSize();
     }
 
-    public String getBottomTitle() {
-        return mBottomTitle;
+    public void setForthTitleSize(float topTitleSize) {
+        mForthTitlePaint.setTextSize(sp2px(topTitleSize));
+    }
+    public float getForthTitleSize() {
+        return mForthTitlePaint.getTextSize();
     }
 
-    public void setTopTitleColor(int topTitleColor) {
-        mTopTitlePaint.setColor(topTitleColor);
+    public void setFifthTitleSize(float topTitleSize) {
+        mFifthTitlePaint.setTextSize(sp2px(topTitleSize));
+    }
+    public float getFifthTitleSize() {
+        return mFifthTitlePaint.getTextSize();
     }
 
-    public int getTopTitleColor() {
-        return mTopTitlePaint.getColor();
-    }
 
-    public void setCenterTitleColor(int centerTitleColor) {
-        mCenterTitlePaint.setColor(centerTitleColor);
-    }
 
-    public int getCenterTitleColor() {
-        return mCenterTitlePaint.getColor();
-    }
-
-    public void setBottomTitleColor(int bottomTitleColor) {
-        mBottomTitlePaint.setColor(bottomTitleColor);
-    }
-
-    public int getBottomTitleColor() {
-        return mBottomTitlePaint.getColor();
-    }
-
-    public void setTopTitleSize(float topTitleSize) {
-        mTopTitlePaint.setTextSize(sp2px(topTitleSize));
-    }
-
-    public float getsetTopTitleSize() {
-        return mTopTitlePaint.getTextSize();
-    }
-
-    public void setCenterTitleSize(float centerTitleSize) {
-        mCenterTitlePaint.setTextSize(sp2px(centerTitleSize));
-    }
-
-    public float getCenterTitleSize() {
-        return mCenterTitlePaint.getTextSize();
-    }
-
-    public void setBottomTitleSize(float bottomTitleSize) {
-        mBottomTitlePaint.setTextSize(sp2px(bottomTitleSize));
-    }
-
-    public float getBottomTitleSize() {
-        return mBottomTitlePaint.getTextSize();
-    }
+//    public void setTopTitleSize(float topTitleSize) {
+//        mTopTitlePaint.setTextSize(sp2px(topTitleSize));
+//    }
+//
+//    public float getTopTitleSize() {
+//        return mTopTitlePaint.getTextSize();
+//    }
+//
+//    public void setCenterTitleSize(float centerTitleSize) {
+//        mCenterTitlePaint.setTextSize(sp2px(centerTitleSize));
+//    }
+//
+//    public float getCenterTitleSize() {
+//        return mCenterTitlePaint.getTextSize();
+//    }
+//
+//    public void setBottomTitleSize(float bottomTitleSize) {
+//        mBottomTitlePaint.setTextSize(sp2px(bottomTitleSize));
+//    }
+//
+//    public float getBottomTitleSize() {
+//        return mBottomTitlePaint.getTextSize();
+//    }
 
     private void startAnimation() {
         if (mAnimatorSet != null) {
